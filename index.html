@@ -1,0 +1,855 @@
+<!doctype html>
+<html lang="ky">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Элдияр & Сезим — Үйлөнүү тою чакыруусу</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Great+Vibes&family=Cormorant:wght@300;400;600&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #6b8290;
+            --primary-dark: #4a5f6d;
+            --bg-light: #f8f9fa;
+            --white: #ffffff;
+            --text-dark: #2c3e50;
+            --text-muted: #7f8c8d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            min-height: 100%;
+            font-family: "Cormorant", "Georgia", serif;
+            background: linear-gradient(180deg, #718a97 0%, #4a5f6d 100%);
+            color: var(--text-dark);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            padding: 20px 0;
+        }
+
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Popup modal */
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+            padding: 20px;
+            backdrop-filter: blur(8px);
+        }
+
+        .modal.hidden {
+            display: none;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 35px 25px;
+            border-radius: 15px;
+            text-align: center;
+            max-width: 380px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(107, 130, 144, 0.2);
+        }
+
+        .modal-names {
+            font-family: "Great Vibes", cursive;
+            font-size: 42px;
+            color: var(--primary);
+            line-height: 1.3;
+            margin: 15px 0;
+        }
+
+        .modal-date {
+            font-size: 13px;
+            letter-spacing: 2.5px;
+            color: var(--text-muted);
+            margin-top: 8px;
+            text-transform: uppercase;
+        }
+
+        .modal-btn {
+            background: transparent;
+            color: var(--text-dark);
+            border: 2px solid var(--text-dark);
+            padding: 14px 45px;
+            font-size: 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: "Cormorant", serif;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-top: 25px;
+        }
+
+        .modal-btn:hover {
+            background: var(--text-dark);
+            color: white;
+        }
+
+        /* Main card */
+        .card {
+            background: white;
+            width: 100%;
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4);
+            margin-bottom: 20px;
+        }
+
+        /* Header with arch design */
+        .card-header {
+            background: linear-gradient(180deg, #6b8290 0%, #5a7481 100%);
+            color: white;
+            padding: 40px 25px 35px;
+            text-align: left;
+            position: relative;
+            clip-path: ellipse(100% 100% at 50% 0%);
+        }
+
+        .card-header::after {
+            content: "";
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            bottom: 10px;
+            left: 15px;
+            border: 1.5px solid rgba(255, 255, 255, 0.3);
+            border-radius: inherit;
+            pointer-events: none;
+            clip-path: ellipse(100% 100% at 50% 0%);
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .couple-names {
+            font-family: "Great Vibes", cursive;
+            font-size: 46px;
+            line-height: 1.2;
+            margin: 8px 0;
+        }
+
+        .wedding-date {
+            font-size: 12px;
+            letter-spacing: 2.5px;
+            opacity: 0.95;
+            margin-top: 12px;
+            text-transform: uppercase;
+        }
+
+        /* Photo section */
+        .photo-container {
+            padding: 0 25px;
+            margin-top: -55px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .photo {
+            width: 100%;
+            padding-top: 100%;
+            border-radius: 50%;
+            background: #ddd url('./photo_5433766209859486061_y.jpg') center/cover;
+            border: 10px solid white;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .photo:hover {
+            transform: scale(1.02);
+        }
+
+        /* Card body */
+        .card-body {
+            padding: 25px 25px 30px;
+        }
+
+        .greeting {
+            font-size: 14px;
+            line-height: 1.75;
+            color: var(--text-dark);
+            margin-bottom: 18px;
+            text-align: center;
+        }
+
+        .invitation-names {
+            font-family: "Great Vibes", cursive;
+            font-size: 34px;
+            color: var(--primary);
+            margin: 15px 0;
+            text-align: center;
+        }
+
+        .invitation-text {
+            font-size: 15px;
+            line-height: 1.7;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Timeline */
+        .timeline {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 12px;
+            margin: 25px 0;
+        }
+
+        .day-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .day-item.active {
+            color: var(--primary-dark);
+            font-weight: 700;
+        }
+
+        .day-item.active::after {
+            content: "";
+            display: block;
+            width: 2px;
+            height: 35px;
+            background: var(--primary-dark);
+            margin-top: 8px;
+            border-radius: 2px;
+        }
+
+        /* Event details */
+        .event-time {
+            font-family: "Playfair Display", serif;
+            font-size: 20px;
+            color: var(--primary-dark);
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        /* Additional photos section - OVERLAPPED DESIGN */
+        .couple-photos {
+            margin: 25px 0;
+            position: relative;
+        }
+
+        .photos-overlap-container {
+            position: relative;
+            width: 100%;
+            min-height: 400px;
+        }
+
+        .photo-main-large {
+            position: relative;
+            width: 60%;
+            padding-top: 100%;
+            border-radius: 60px;
+            overflow: hidden;
+            background: #ddd;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            cursor: pointer;
+            transition: transform 0.3s;
+            clip-path: ellipse(100% 100% at 90% 50%);
+            background-image: url('./photo_5429384763396981249_y (1).jpg');
+            background-size: cover;
+            background-position: center;
+            z-index: 1;
+        }
+
+     
+
+        .photo-hands-overlay {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 53%;
+            padding-top: 50%;
+            border-radius: 50%;
+            overflow: hidden;
+            background: #ddd;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+            cursor: pointer;
+            transition: transform 0.3s;
+            clip-path: ellipse(100% 100% at 50% 100%);
+            background-image: url('./photo_5429175035848949166_y.jpg');
+            background-size: cover;
+            background-position: center;
+            z-index: 1;
+          
+        }
+
+      
+
+        .location-box {
+            background: var(--bg-light);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .location-title {
+            font-size: 13px;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .location-name {
+            font-size: 17px;
+            color: var(--primary-dark);
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .location-address {
+            font-size: 14px;
+            color: var(--text-dark);
+            line-height: 1.5;
+        }
+
+        /* Countdown */
+        .countdown {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 18px;
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+
+        .countdown-title {
+            font-family: "Playfair Display", serif;
+            font-size: 16px;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+            font-style: italic;
+        }
+
+        .countdown-timer {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+
+        .time-unit {
+            text-align: center;
+        }
+
+        .time-value {
+            font-size: 26px;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .time-label {
+            font-size: 11px;
+            margin-top: 4px;
+            opacity: 0.85;
+        }
+
+        /* Map button */
+        .map-button {
+            display: inline-block;
+            background: white;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 12px 30px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin: 15px 0;
+        }
+
+        .map-button:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* RSVP section */
+        .rsvp-section {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #e8e8e8;
+        }
+
+        .rsvp-title {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .rsvp-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .rsvp-btn {
+            flex: 1;
+            padding: 13px;
+            border-radius: 10px;
+            border: 2px solid var(--primary);
+            background: white;
+            color: var(--primary);
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: "Cormorant", serif;
+        }
+
+        .rsvp-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .rsvp-btn.declined {
+            border-color: #ddd;
+            color: var(--text-muted);
+        }
+
+        .rsvp-btn.declined:hover {
+            background: #f5f5f5;
+            color: var(--text-dark);
+        }
+
+        .status-msg {
+            font-size: 13px;
+            color: var(--text-dark);
+            margin-top: 18px;
+            text-align: center;
+            font-style: italic;
+        }
+
+        /* Hosts section */
+        .hosts {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #e8e8e8;
+            text-align: center;
+        }
+
+        .hosts-label {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            font-style: italic;
+        }
+
+        .hosts-names {
+            font-family: "Playfair Display", serif;
+            font-size: 14px;
+            color: var(--primary-dark);
+            font-weight: 600;
+            line-height: 1.6;
+            margin-right: 90px;
+            letter-spacing: 1px;
+        }
+        .hosts-namess {
+            font-family: "Playfair Display", serif;
+            font-size: 14px;
+            color: var(--primary-dark);
+            font-weight: 600;
+            line-height: 1.6;
+            letter-spacing: 1px;
+            margin-left: 110px;
+            margin-top: 10px;
+        }
+
+        /* Google Form iframe container */
+        .form-container {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 998;
+            padding: 20px;
+            overflow: auto;
+        }
+
+        .form-container.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .form-wrapper {
+            background: white;
+            border-radius: 15px;
+            padding: 15px;
+            max-width: 680px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        .close-form {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            line-height: 1;
+            z-index: 1;
+        }
+
+        .close-form:hover {
+            background: var(--primary-dark);
+        }
+
+        @media (max-width:480px) {
+            .couple-names {
+                font-size: 38px;
+            }
+
+            .modal-names {
+                font-size: 36px;
+            }
+
+            .invitation-names {
+                font-size: 30px;
+            }
+
+            .card-header {
+                padding: 35px 20px 30px;
+            }
+
+            .card-body {
+                padding: 20px;
+            }
+
+            .time-value {
+                font-size: 22px;
+            }
+
+            .photos-overlap-container {
+                gap: 10px;
+            }
+
+            .photo-main-large {
+                width: 70%;
+            }
+
+            .photo-hands-overlay {
+                width: 60%;
+            }
+        }
+
+        .divvv {
+            width: 100%;
+            max-width: 1200px;
+            padding: 20px;
+        }
+
+        .imggg {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-top-left-radius: 40%;
+            border-top-right-radius: 40%;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Opening modal -->
+    <div class="modal" id="openModal">
+        <div class="modal-content">
+            <div style="font-size:12px;color:var(--text-muted);letter-spacing:2px;margin-bottom:8px;">ҮЙЛӨНҮҮ ТОЮ</div>
+            <div class="modal-names">Элдияр<br>&<br>Сезим</div>
+            <div class="modal-date">WEDDING DAY 14.11.2025</div>
+            <button class="modal-btn" id="openBtn">Чакырууну ачуу</button>
+        </div>
+    </div>
+
+    <!-- Google Form popup -->
+    <div class="form-container" id="formContainer">
+        <div class="form-wrapper">
+            <button class="close-form" id="closeForm">✕</button>
+            <iframe
+                src="https://docs.google.com/forms/d/e/1FAIpQLSfoSUmuWrEhk99qjEMFRWDMBcQDusdbogXh4X5oEBhAbKT5Kg/viewform?embedded=true"
+                width="100%" height="850" frameborder="0" marginheight="0" marginwidth="0">
+                Жүктөлүүдө…
+            </iframe>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="card" id="mainCard">
+
+            <!-- Header with arch -->
+            <div class="card-header">
+                <div class="header-content">
+                    <div class="couple-names">Элдияр<br>&<br>Сезим</div>
+                    <div class="wedding-date">WEDDING DAY 14.11.2025</div>
+                </div>
+            </div>
+
+            <!-- Main photo -->
+            <div class="photo-container">
+                <div class="photo" id="couplePhoto"></div>
+            </div>
+
+            <!-- Body content -->
+            <div class="card-body">
+
+                <div class="greeting">
+                    Урматтуу туугандар, бөлөлөр, кудалар, достор жана кошуна-колоңдор!
+                </div>
+
+                <div class="invitation-names">
+                    Элдияр & Сезим
+                </div>
+
+                <div class="invitation-text">
+                    Бактылуу күнүбүздө биз менен бирге болуп, шаттанып, ырахат алып, асыл ниет, жакшы тилектериңиз менен
+                    куттуктап, тойлоп кетүүңүздү өтүнөбүз!
+                </div>
+
+                <!-- Timeline -->
+                <div class="timeline">
+                    <div class="day-item">10</div>
+                    <div class="day-item">11</div>
+                    <div class="day-item">12</div>
+                    <div class="day-item">13</div>
+                    <div class="day-item active">14</div>
+                    <div class="day-item">15</div>
+                    <div class="day-item">16</div>
+                </div>
+
+                <!-- Time -->
+                <div class="event-time">
+                    Убакыт: 14.11.25 жылы саат 16:00 до
+                </div>
+
+                <!-- Additional couple photos - TWO PHOTOS OVERLAPPED -->
+                <div class="couple-photos">
+                    <div class="photos-overlap-container">
+                        <div class="photo-main-large" id="photo1"></div>
+                        <div class="photo-hands-overlay" id="photo3"></div>
+                    </div>
+                </div>
+
+                <!-- Location -->
+                <div class="location-box">
+                    <div class="location-title">Мекен, жайгашкан жери:</div>
+                    <div class="location-name">Кара-Көл кафеси</div>
+                    <div class="location-address">
+                        Жалал-Абад облусу<br>
+                        Кара-Көл шаары
+                    </div>
+                    <div style="margin-top:12px;">
+                        <a href="https://2gis.kg/kara-kul/firm/70000001083977152/72.706302%2C41.636868?m=72.70674%2C41.636739%2F18.38" target="_blank"
+                            class="map-button">
+                            📍 Картадан кароо
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Countdown -->
+                <div class="countdown">
+                    <div class="countdown-title">Тойго чейин:</div>
+                    <div class="countdown-timer">
+                        <div class="time-unit">
+                            <div class="time-value" id="days">00</div>
+                            <div class="time-label">күн</div>
+                        </div>
+                        <div class="time-unit">
+                            <div class="time-value" id="hours">00</div>
+                            <div class="time-label">саат</div>
+                        </div>
+                        <div class="time-unit">
+                            <div class="time-value" id="minutes">00</div>
+                            <div class="time-label">мүнөт</div>
+                        </div>
+                        <div class="time-unit">
+                            <div class="time-value" id="seconds">00</div>
+                            <div class="time-label">секунд</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RSVP -->
+                <div class="rsvp-section">
+                    <div class="rsvp-title">Катышасызбы? Кыскача жооп бериңиз</div>
+                    <div class="rsvp-buttons">
+                        <button class="rsvp-btn" id="btnYes">Барамын</button>
+                        <button class="rsvp-btn declined" id="btnNo">Бара албайм</button>
+                    </div>
+                    <div class="status-msg" id="statusMsg"></div>
+                </div>
+
+                <!-- Hosts -->
+                <div class="hosts">
+                    <div class="hosts-label">Урматтоо менен:</div>
+
+                    <div class="hosts-names">
+                       Азамат,Жибек
+
+                    </div>
+                    <div class="hosts-namess">
+                        
+                         Айсулу, Шааргүл
+                    </div>
+                    
+                    <div class="divvv">
+                        <img class="imggg" src="./photo_5433766209859486062_y.jpg" alt="" width="300px">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Elements
+        const modal = document.getElementById('openModal');
+        const openBtn = document.getElementById('openBtn');
+        const mainCard = document.getElementById('mainCard');
+        const btnYes = document.getElementById('btnYes');
+        const btnNo = document.getElementById('btnNo');
+        const statusMsg = document.getElementById('statusMsg');
+        const couplePhoto = document.getElementById('couplePhoto');
+        const photo1 = document.getElementById('photo1');
+        const photo3 = document.getElementById('photo3');
+        const formContainer = document.getElementById('formContainer');
+        const closeForm = document.getElementById('closeForm');
+
+        // Open invitation
+        openBtn.addEventListener('click', () => {
+            modal.classList.add('hidden');
+            mainCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+
+        // Countdown timer
+        const weddingDate = new Date('2025-11-14T16:00:00').getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = weddingDate - now;
+
+            if (distance < 0) {
+                document.getElementById('days').textContent = '00';
+                document.getElementById('hours').textContent = '00';
+                document.getElementById('minutes').textContent = '00';
+                document.getElementById('seconds').textContent = '00';
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = String(days).padStart(2, '0');
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
+        // RSVP buttons - open Google Form
+        function openGoogleForm() {
+            formContainer.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeGoogleForm() {
+            formContainer.classList.remove('active');
+            document.body.style.overflow = 'auto';
+            showStatus("Рахмат! Жообуңуз кабыл алынды.");
+        }
+
+        btnYes.addEventListener('click', openGoogleForm);
+        btnNo.addEventListener('click', openGoogleForm);
+        closeForm.addEventListener('click', closeGoogleForm);
+
+        // Close form on outside click
+        formContainer.addEventListener('click', (e) => {
+            if (e.target === formContainer) {
+                closeGoogleForm();
+            }
+        });
+
+        function showStatus(text) {
+            statusMsg.textContent = text;
+            statusMsg.style.color = 'var(--primary)';
+            setTimeout(() => {
+                statusMsg.textContent = "";
+                statusMsg.style.color = 'var(--text-muted)';
+            }, 5000);
+        }
+
+        // Photo upload function
+        function setupPhotoUpload(element) {
+            element.addEventListener('click', () => {
+                const input = document.createElement('input');
+                input.type = 'file';
+                input.accept = 'image/*';
+                input.onchange = (e) => {
+                    const file = e.target.files[0];
+                    if (!file) return;
+                    const url = URL.createObjectURL(file);
+                    element.style.backgroundImage = `url('${url}')`;
+                };
+                input.click();
+            });
+        }
+
+        // Setup all photo uploads
+        setupPhotoUpload(couplePhoto);
+        setupPhotoUpload(photo1);
+        setupPhotoUpload(photo3);
+
+        // Listen for form submission
+        window.addEventListener('message', (event) => {
+            if (event.data && typeof event.data === 'string') {
+                if (event.data.includes('formResponse') || event.data.includes('formSubmitted')) {
+                    closeGoogleForm();
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
