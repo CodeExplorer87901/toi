@@ -1330,6 +1330,24 @@
             <button class="modal-btn" id="openBtn">Чакырууну ачуу</button>
         </div>
     </div>
+    <audio id="bg-music" autoplay loop>
+        <source src="./Ordinary.mp3/Ordinary.mp3" type="audio/mpeg">
+      </audio>
+      
+      <script>
+        const audio = document.getElementById("bg-music");
+      
+        // Когда браузер загрузит метаданные песни (длину)
+        audio.addEventListener("loadedmetadata", () => {
+          audio.currentTime = 32; // начинаем с 32-й секунды
+          audio.play().catch(err => {
+            console.log("Autoplay заблокирован браузером:", err);
+          });
+        });
+      </script>
+      
+      
+      
     
     <div class="form-container" id="formContainer">
         <div class="form-wrapper">
@@ -1364,15 +1382,9 @@
                     Бактылуу күнүбүздө биз менен бирге болуп, шаттанып, ырахат алып, асыл ниет, жакшы тилектериңиз менен куттуктап, тойлоп кетүүңүздү өтүнөбүз!
                 </div>
 
-                <div class="timeline animate slide-left delay-4">
-                    <div class="day-item">10</div>
-                    <div class="day-item">11</div>
-                    <div class="day-item">12</div>
-                    <div class="day-item">13</div>
-                    <div class="day-item active">14</div>
-                    <div class="day-item">15</div>
-                    <div class="day-item">16</div>
-                </div>
+               <div>
+                <img style="width: 100%; height: auto;" src="./ChatGPT Image 24 окт. 2025 г., 18_21_16.png" alt="">
+               </div>
 
                 <div class="event-time animate fade-up delay-1">
                     Убакыт: 14.11.25 жылы саат 16:00 до
