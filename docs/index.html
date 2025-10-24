@@ -1,15 +1,10 @@
 <!doctype html>
 <html lang="ky">
-
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Элдияр & Сезим — Үйлөнүү тою чакыруусу</title>
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Great+Vibes&family=Cormorant:wght@300;400;600&display=swap"
-        rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Great+Vibes&family=Cormorant:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #6b8290;
@@ -19,33 +14,102 @@
             --text-dark: #2c3e50;
             --text-muted: #7f8c8d;
         }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
-        html,
-        body {
+        html, body {
             min-height: 100%;
             font-family: "Cormorant", "Georgia", serif;
             background: linear-gradient(180deg, #718a97 0%, #4a5f6d 100%);
             color: var(--text-dark);
             -webkit-font-smoothing: antialiased;
         }
-
         body {
             padding: 20px 0;
         }
-
         .container {
             max-width: 480px;
             margin: 0 auto;
             padding: 0 15px;
         }
+        
+        /* АНИМАЦИИ */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-60px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(60px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.7);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .animate {
+            opacity: 0;
+        }
+        .animate.show {
+            animation-fill-mode: forwards;
+        }
+        .animate.fade-up.show {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+        .animate.slide-left.show {
+            animation: slideInLeft 0.8s ease forwards;
+        }
+        .animate.slide-right.show {
+            animation: slideInRight 0.8s ease forwards;
+        }
+        .animate.scale.show {
+            animation: scaleIn 0.9s ease forwards;
+        }
+        .animate.fade.show {
+            animation: fadeIn 1s ease forwards;
+        }
+        
+        .delay-1 { animation-delay: 0.1s !important; }
+        .delay-2 { animation-delay: 0.2s !important; }
+        .delay-3 { animation-delay: 0.3s !important; }
+        .delay-4 { animation-delay: 0.4s !important; }
+        .delay-5 { animation-delay: 0.5s !important; }
 
-        /* Popup modal */
+        /* Modal */
         .modal {
             position: fixed;
             inset: 0;
@@ -57,11 +121,9 @@
             padding: 20px;
             backdrop-filter: blur(8px);
         }
-
         .modal.hidden {
             display: none;
         }
-
         .modal-content {
             background: white;
             padding: 35px 25px;
@@ -71,8 +133,8 @@
             width: 100%;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
             border: 1px solid rgba(107, 130, 144, 0.2);
+            animation: scaleIn 0.6s ease;
         }
-
         .modal-names {
             font-family: "Great Vibes", cursive;
             font-size: 42px;
@@ -80,7 +142,6 @@
             line-height: 1.3;
             margin: 15px 0;
         }
-
         .modal-date {
             font-size: 13px;
             letter-spacing: 2.5px;
@@ -88,7 +149,6 @@
             margin-top: 8px;
             text-transform: uppercase;
         }
-
         .modal-btn {
             background: transparent;
             color: var(--text-dark);
@@ -102,13 +162,14 @@
             transition: all 0.3s;
             margin-top: 25px;
         }
-
         .modal-btn:hover {
             background: var(--text-dark);
             color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
 
-        /* Main card */
+        /* Card */
         .card {
             background: white;
             width: 100%;
@@ -117,8 +178,6 @@
             box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4);
             margin-bottom: 20px;
         }
-
-        /* Header with arch design */
         .card-header {
             background: linear-gradient(180deg, #6b8290 0%, #5a7481 100%);
             color: white;
@@ -127,7 +186,6 @@
             position: relative;
             clip-path: ellipse(100% 100% at 50% 0%);
         }
-
         .card-header::after {
             content: "";
             position: absolute;
@@ -140,19 +198,16 @@
             pointer-events: none;
             clip-path: ellipse(100% 100% at 50% 0%);
         }
-
         .header-content {
             position: relative;
             z-index: 1;
         }
-
         .couple-names {
             font-family: "Great Vibes", cursive;
             font-size: 46px;
             line-height: 1.2;
             margin: 8px 0;
         }
-
         .wedding-date {
             font-size: 12px;
             letter-spacing: 2.5px;
@@ -160,15 +215,12 @@
             margin-top: 12px;
             text-transform: uppercase;
         }
-
-        /* Photo section */
         .photo-container {
             padding: 0 25px;
             margin-top: -55px;
             position: relative;
             z-index: 2;
         }
-
         .photo {
             width: 100%;
             padding-top: 100%;
@@ -177,18 +229,14 @@
             border: 10px solid white;
             box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
             cursor: pointer;
-            transition: transform 0.3s;
+            transition: transform 0.4s ease;
         }
-
         .photo:hover {
-            transform: scale(1.02);
+            transform: scale(1.05) rotate(2deg);
         }
-
-        /* Card body */
         .card-body {
             padding: 25px 25px 30px;
         }
-
         .greeting {
             font-size: 14px;
             line-height: 1.75;
@@ -196,7 +244,6 @@
             margin-bottom: 18px;
             text-align: center;
         }
-
         .invitation-names {
             font-family: "Great Vibes", cursive;
             font-size: 34px;
@@ -204,15 +251,12 @@
             margin: 15px 0;
             text-align: center;
         }
-
         .invitation-text {
             font-size: 15px;
             line-height: 1.7;
             text-align: center;
             margin-bottom: 20px;
         }
-
-        /* Timeline */
         .timeline {
             display: flex;
             justify-content: center;
@@ -220,20 +264,19 @@
             gap: 12px;
             margin: 25px 0;
         }
-
         .day-item {
             display: flex;
             flex-direction: column;
             align-items: center;
             font-size: 14px;
             color: var(--text-muted);
+            transition: all 0.3s ease;
         }
-
         .day-item.active {
             color: var(--primary-dark);
             font-weight: 700;
+            transform: scale(1.2);
         }
-
         .day-item.active::after {
             content: "";
             display: block;
@@ -243,8 +286,6 @@
             margin-top: 8px;
             border-radius: 2px;
         }
-
-        /* Event details */
         .event-time {
             font-family: "Playfair Display", serif;
             font-size: 20px;
@@ -252,38 +293,31 @@
             text-align: center;
             margin: 20px 0;
         }
-
-        /* Additional photos section - OVERLAPPED DESIGN */
         .couple-photos {
             margin: 25px 0;
             position: relative;
         }
-
         .photos-overlap-container {
             position: relative;
             width: 100%;
             min-height: 400px;
         }
-
         .photo-main-large {
             position: relative;
             width: 60%;
             padding-top: 100%;
             border-radius: 60px;
             overflow: hidden;
-            background: #ddd;
+            background: #ddd url('./photo_5429384763396981249_y (1).jpg') center/cover;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
             cursor: pointer;
-            transition: transform 0.3s;
+            transition: transform 0.4s ease;
             clip-path: ellipse(100% 100% at 90% 50%);
-            background-image: url('./photo_5429384763396981249_y (1).jpg');
-            background-size: cover;
-            background-position: center;
             z-index: 1;
         }
-
-     
-
+        .photo-main-large:hover {
+            transform: scale(1.05);
+        }
         .photo-hands-overlay {
             position: absolute;
             bottom: 0;
@@ -292,20 +326,16 @@
             padding-top: 50%;
             border-radius: 50%;
             overflow: hidden;
-            background: #ddd;
+            background: #ddd url('./photo_5429175035848949166_y.jpg') center/cover;
             box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
             cursor: pointer;
-            transition: transform 0.3s;
+            transition: transform 0.4s ease;
             clip-path: ellipse(100% 100% at 50% 100%);
-            background-image: url('./photo_5429175035848949166_y.jpg');
-            background-size: cover;
-            background-position: center;
             z-index: 1;
-          
         }
-
-      
-
+        .photo-hands-overlay:hover {
+            transform: scale(1.05);
+        }
         .location-box {
             background: var(--bg-light);
             padding: 20px;
@@ -313,7 +343,6 @@
             margin: 20px 0;
             text-align: center;
         }
-
         .location-title {
             font-size: 13px;
             letter-spacing: 1.5px;
@@ -321,21 +350,17 @@
             text-transform: uppercase;
             margin-bottom: 8px;
         }
-
         .location-name {
             font-size: 17px;
             color: var(--primary-dark);
             font-weight: 600;
             margin-bottom: 5px;
         }
-
         .location-address {
             font-size: 14px;
             color: var(--text-dark);
             line-height: 1.5;
         }
-
-        /* Countdown */
         .countdown {
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             color: white;
@@ -343,7 +368,6 @@
             border-radius: 12px;
             margin: 20px 0;
         }
-
         .countdown-title {
             font-family: "Playfair Display", serif;
             font-size: 16px;
@@ -351,30 +375,24 @@
             margin-bottom: 12px;
             font-style: italic;
         }
-
         .countdown-timer {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 8px;
         }
-
         .time-unit {
             text-align: center;
         }
-
         .time-value {
             font-size: 26px;
             font-weight: 700;
             line-height: 1;
         }
-
         .time-label {
             font-size: 11px;
             margin-top: 4px;
             opacity: 0.85;
         }
-
-        /* Map button */
         .map-button {
             display: inline-block;
             background: white;
@@ -388,32 +406,28 @@
             transition: all 0.3s;
             margin: 15px 0;
         }
-
         .map-button:hover {
             background: var(--primary);
             color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(107, 130, 144, 0.3);
         }
-
-        /* RSVP section */
         .rsvp-section {
             margin-top: 25px;
             padding-top: 20px;
             border-top: 1px solid #e8e8e8;
         }
-
         .rsvp-title {
             font-size: 13px;
             color: var(--text-muted);
             margin-bottom: 12px;
             text-align: center;
         }
-
         .rsvp-buttons {
             display: flex;
             gap: 10px;
             margin-bottom: 15px;
         }
-
         .rsvp-btn {
             flex: 1;
             padding: 13px;
@@ -427,22 +441,19 @@
             transition: all 0.3s;
             font-family: "Cormorant", serif;
         }
-
         .rsvp-btn:hover {
             background: var(--primary);
             color: white;
+            transform: translateY(-2px);
         }
-
         .rsvp-btn.declined {
             border-color: #ddd;
             color: var(--text-muted);
         }
-
         .rsvp-btn.declined:hover {
             background: #f5f5f5;
             color: var(--text-dark);
         }
-
         .status-msg {
             font-size: 13px;
             color: var(--text-dark);
@@ -450,22 +461,18 @@
             text-align: center;
             font-style: italic;
         }
-
-        /* Hosts section */
         .hosts {
             margin-top: 25px;
             padding-top: 20px;
             border-top: 1px solid #e8e8e8;
             text-align: center;
         }
-
         .hosts-label {
             font-size: 13px;
             color: var(--text-muted);
             margin-bottom: 8px;
             font-style: italic;
         }
-
         .hosts-names {
             font-family: "Playfair Display", serif;
             font-size: 14px;
@@ -485,8 +492,6 @@
             margin-left: 110px;
             margin-top: 10px;
         }
-
-        /* Google Form iframe container */
         .form-container {
             display: none;
             position: fixed;
@@ -496,13 +501,11 @@
             padding: 20px;
             overflow: auto;
         }
-
         .form-container.active {
             display: flex;
             align-items: center;
             justify-content: center;
         }
-
         .form-wrapper {
             background: white;
             border-radius: 15px;
@@ -512,7 +515,6 @@
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
             position: relative;
         }
-
         .close-form {
             position: absolute;
             top: 10px;
@@ -527,56 +529,17 @@
             font-size: 20px;
             line-height: 1;
             z-index: 1;
+            transition: all 0.3s;
         }
-
         .close-form:hover {
             background: var(--primary-dark);
+            transform: rotate(90deg);
         }
-
-        @media (max-width:480px) {
-            .couple-names {
-                font-size: 38px;
-            }
-
-            .modal-names {
-                font-size: 36px;
-            }
-
-            .invitation-names {
-                font-size: 30px;
-            }
-
-            .card-header {
-                padding: 35px 20px 30px;
-            }
-
-            .card-body {
-                padding: 20px;
-            }
-
-            .time-value {
-                font-size: 22px;
-            }
-
-            .photos-overlap-container {
-                gap: 10px;
-            }
-
-            .photo-main-large {
-                width: 70%;
-            }
-
-            .photo-hands-overlay {
-                width: 60%;
-            }
-        }
-
         .divvv {
             width: 100%;
             max-width: 1200px;
             padding: 20px;
         }
-
         .imggg {
             width: 100%;
             height: auto;
@@ -585,13 +548,780 @@
             border-top-right-radius: 40%;
             border-bottom-left-radius: 30px;
             border-bottom-right-radius: 30px;
+            transition: transform 0.4s ease;
+        }
+        .imggg:hover {
+            transform: scale(1.02);
+        }
+        @media (max-width:480px) {
+            .couple-names { font-size: 38px; }
+            .modal-names { font-size: 36px; }
+            .invitation-names { font-size: 30px; }
+            .card-header { padding: 35px 20px 30px; }
+            .card-body { padding: 20px; }
+            .time-value { font-size: 22px; }
+            .photo-main-large { width: 70%; }
+            .photo-hands-overlay { width: 60%; }
+        }
+
+        :root {
+            --primary: #6b8290;
+            --primary-dark: #4a5f6d;
+            --bg-light: #f8f9fa;
+            --white: #ffffff;
+            --text-dark: #2c3e50;
+            --text-muted: #7f8c8d;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html, body {
+            min-height: 100%;
+            font-family: "Cormorant", "Georgia", serif;
+            background: linear-gradient(180deg, #718a97 0%, #4a5f6d 100%);
+            color: var(--text-dark);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+        body {
+            padding: 20px 0;
+            position: relative;
+        }
+
+        /* ДЕКОРАТИВНЫЕ ЭЛЕМЕНТЫ */
+        .bg-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.1;
+        }
+        .bg-pattern svg {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+        .heart {
+            position: absolute;
+            font-size: 20px;
+            opacity: 0;
+            animation: floatHeart 8s infinite ease-in-out;
+        }
+        @keyframes floatHeart {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 0 15px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* АНИМАЦИИ */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(80px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-100px) rotate(-5deg);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0) rotate(0deg);
+            }
+        }
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(100px) rotate(5deg);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0) rotate(0deg);
+            }
+        }
+        @keyframes scaleIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.3) rotate(-10deg);
+            }
+            60% {
+                transform: scale(1.1) rotate(2deg);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes typewriter {
+            from {
+                width: 0;
+            }
+            to {
+                width: 100%;
+            }
+        }
+        @keyframes blink {
+            50% {
+                border-color: transparent;
+            }
+        }
+        @keyframes drawBorder {
+            from {
+                stroke-dashoffset: 1000;
+            }
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+        @keyframes shimmer {
+            0% {
+                background-position: -200% center;
+            }
+            100% {
+                background-position: 200% center;
+            }
+        }
+        
+        .animate {
+            opacity: 0;
+        }
+        .animate.show {
+            animation-fill-mode: forwards;
+        }
+        .animate.fade-up.show {
+            animation: fadeInUp 1s ease forwards;
+        }
+        .animate.slide-left.show {
+            animation: slideInLeft 1s ease forwards;
+        }
+        .animate.slide-right.show {
+            animation: slideInRight 1s ease forwards;
+        }
+        .animate.scale.show {
+            animation: scaleIn 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        .animate.fade.show {
+            animation: fadeIn 1.5s ease forwards;
+        }
+        
+        .delay-1 { animation-delay: 0.2s !important; }
+        .delay-2 { animation-delay: 0.4s !important; }
+        .delay-3 { animation-delay: 0.6s !important; }
+        .delay-4 { animation-delay: 0.8s !important; }
+        .delay-5 { animation-delay: 1s !important; }
+
+        /* Modal */
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+            padding: 20px;
+            backdrop-filter: blur(12px);
+        }
+        .modal.hidden {
+            display: none;
+        }
+        .modal-content {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 380px;
+            width: 100%;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(107, 130, 144, 0.3);
+            animation: scaleIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .modal-content::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+        .modal-names {
+            font-family: "Great Vibes", cursive;
+            font-size: 48px;
+            color: var(--primary);
+            line-height: 1.3;
+            margin: 15px 0;
+            position: relative;
+            z-index: 1;
+        }
+        .modal-date {
+            font-size: 13px;
+            letter-spacing: 2.5px;
+            color: var(--text-muted);
+            margin-top: 8px;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 1;
+        }
+        .modal-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 16px 50px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: "Cormorant", serif;
+            font-weight: 600;
+            transition: all 0.4s;
+            margin-top: 30px;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 10px 30px rgba(107, 130, 144, 0.4);
+        }
+        .modal-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(107, 130, 144, 0.6);
+        }
+
+        /* Card */
+        .card {
+            background: white;
+            width: 100%;
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+            margin-bottom: 20px;
+            position: relative;
+        }
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shimmer 4s infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .card-header {
+            background: linear-gradient(180deg, #6b8290 0%, #5a7481 100%);
+            color: white;
+            padding: 45px 25px 40px;
+            text-align: left;
+            position: relative;
+            clip-path: ellipse(100% 100% at 50% 0%);
+        }
+        .card-header svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        .ornament-path {
+            fill: none;
+            stroke: rgba(255, 255, 255, 0.3);
+            stroke-width: 2;
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: drawBorder 3s ease forwards;
+        }
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+        .couple-names {
+            font-family: "Great Vibes", cursive;
+            font-size: 48px;
+            line-height: 1.2;
+            margin: 8px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        .wedding-date {
+            font-size: 12px;
+            letter-spacing: 2.5px;
+            opacity: 0.95;
+            margin-top: 12px;
+            text-transform: uppercase;
+        }
+        .photo-container {
+            padding: 0 25px;
+            margin-top: -60px;
+            position: relative;
+            z-index: 3;
+        }
+        .photo {
+            width: 100%;
+            padding-top: 100%;
+            border-radius: 50%;
+            background: #ddd url('./photo_5433766209859486061_y.jpg') center/cover;
+            border: 12px solid white;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+        }
+        .photo::after {
+            content: '';
+            position: absolute;
+            inset: -12px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary), transparent, var(--primary-dark));
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        .photo:hover {
+            transform: scale(1.08) rotate(3deg);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+        .photo:hover::after {
+            opacity: 0.3;
+        }
+        .card-body {
+            padding: 25px 25px 30px;
+            position: relative;
+            z-index: 2;
+        }
+        .greeting {
+            font-size: 14px;
+            line-height: 1.75;
+            color: var(--text-dark);
+            margin-bottom: 18px;
+            text-align: center;
+            overflow: hidden;
+        }
+        .typewriter {
+            display: inline-block;
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 3px solid var(--primary);
+            animation: typewriter 3s steps(60) forwards, blink 0.75s step-end infinite;
+        }
+        .invitation-names {
+            font-family: "Great Vibes", cursive;
+            font-size: 38px;
+            color: var(--primary);
+            margin: 15px 0;
+            text-align: center;
+            text-shadow: 2px 2px 8px rgba(107, 130, 144, 0.3);
+        }
+        .invitation-text {
+            font-size: 15px;
+            line-height: 1.7;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .timeline {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 12px;
+            margin: 25px 0;
+        }
+        .day-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 14px;
+            color: var(--text-muted);
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .day-item.active {
+            color: var(--primary-dark);
+            font-weight: 700;
+            transform: scale(1.3);
+            animation: pulse 2s infinite;
+        }
+        .day-item.active::after {
+            content: "";
+            display: block;
+            width: 2px;
+            height: 35px;
+            background: linear-gradient(180deg, var(--primary-dark), transparent);
+            margin-top: 8px;
+            border-radius: 2px;
+            animation: fadeIn 1s ease;
+        }
+        .event-time {
+            font-family: "Playfair Display", serif;
+            font-size: 20px;
+            color: var(--primary-dark);
+            text-align: center;
+            margin: 20px 0;
+        }
+        .couple-photos {
+            margin: 25px 0;
+            position: relative;
+        }
+        .photos-overlap-container {
+            position: relative;
+            width: 100%;
+            min-height: 400px;
+        }
+        .photo-main-large {
+            position: relative;
+            width: 60%;
+            padding-top: 100%;
+            border-radius: 60px;
+            overflow: hidden;
+            background: #ddd url('./photo_5429384763396981249_y (1).jpg') center/cover;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            clip-path: ellipse(100% 100% at 90% 50%);
+            z-index: 1;
+        }
+        .photo-main-large:hover {
+            transform: scale(1.08) rotate(-2deg);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+        }
+        .photo-hands-overlay {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 53%;
+            padding-top: 50%;
+            border-radius: 50%;
+            overflow: hidden;
+            background: #ddd url('./photo_5429175035848949166_y.jpg') center/cover;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            clip-path: ellipse(100% 100% at 50% 100%);
+            z-index: 2;
+        }
+        .photo-hands-overlay:hover {
+            transform: scale(1.08) rotate(2deg);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+        .location-box {
+            background: linear-gradient(135deg, var(--bg-light) 0%, #e8eef2 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.4s;
+        }
+        .location-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+        .location-title {
+            font-size: 13px;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+        .location-name {
+            font-size: 18px;
+            color: var(--primary-dark);
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        .location-address {
+            font-size: 14px;
+            color: var(--text-dark);
+            line-height: 1.5;
+        }
+        .countdown {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            box-shadow: 0 10px 30px rgba(107, 130, 144, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        .countdown::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: pulse 3s infinite;
+        }
+        .countdown-title {
+            font-family: "Playfair Display", serif;
+            font-size: 16px;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            font-style: italic;
+            position: relative;
+            z-index: 1;
+        }
+        .countdown-timer {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            position: relative;
+            z-index: 1;
+        }
+        .time-unit {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s;
+        }
+        .time-unit:hover {
+            transform: scale(1.1);
+        }
+        .time-value {
+            font-size: 28px;
+            font-weight: 700;
+            line-height: 1;
+        }
+        .time-label {
+            font-size: 11px;
+            margin-top: 4px;
+            opacity: 0.85;
+        }
+        .map-button {
+            display: inline-block;
+            background: var(--primary);
+            border: none;
+            color: white;
+            padding: 14px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 600;
+            transition: all 0.4s;
+            margin: 15px 0;
+            box-shadow: 0 5px 20px rgba(107, 130, 144, 0.3);
+        }
+        .map-button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(107, 130, 144, 0.5);
+        }
+        .rsvp-section {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #e8e8e8;
+        }
+        .rsvp-title {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            text-align: center;
+        }
+        .rsvp-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .rsvp-btn {
+            flex: 1;
+            padding: 15px;
+            border-radius: 50px;
+            border: 2px solid var(--primary);
+            background: white;
+            color: var(--primary);
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            font-family: "Cormorant", serif;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        .rsvp-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(107, 130, 144, 0.4);
+        }
+        .rsvp-btn.declined {
+            border-color: #ddd;
+            color: var(--text-muted);
+        }
+        .rsvp-btn.declined:hover {
+            background: #f5f5f5;
+            color: var(--text-dark);
+            border-color: var(--text-muted);
+        }
+        .status-msg {
+            font-size: 13px;
+            color: var(--text-dark);
+            margin-top: 18px;
+            text-align: center;
+            font-style: italic;
+        }
+        .hosts {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #e8e8e8;
+            text-align: center;
+        }
+        .hosts-label {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            font-style: italic;
+        }
+        .hosts-names {
+            font-family: "Playfair Display", serif;
+            font-size: 14px;
+            color: var(--primary-dark);
+            font-weight: 600;
+            line-height: 1.6;
+            margin-right: 90px;
+            letter-spacing: 1px;
+        }
+        .hosts-namess {
+            font-family: "Playfair Display", serif;
+            font-size: 14px;
+            color: var(--primary-dark);
+            font-weight: 600;
+            line-height: 1.6;
+            letter-spacing: 1px;
+            margin-left: 110px;
+            margin-top: 10px;
+        }
+        .form-container {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 998;
+            padding: 20px;
+            overflow: auto;
+            backdrop-filter: blur(10px);
+        }
+        .form-container.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .form-wrapper {
+            background: white;
+            border-radius: 20px;
+            padding: 15px;
+            max-width: 680px;
+            width: 100%;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+            position: relative;
+            animation: scaleIn 0.6s ease;
+        }
+        .close-form {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            line-height: 1;
+            z-index: 1;
+            transition: all 0.4s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        .close-form:hover {
+            background: var(--primary-dark);
+            transform: rotate(90deg) scale(1.1);
+        }
+        .divvv {
+            width: 100%;
+            max-width: 1200px;
+            padding: 20px;
+        }
+        .imggg {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-top-left-radius: 40%;
+            border-top-right-radius: 40%;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        .imggg:hover {
+            transform: scale(1.03) rotate(1deg);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+        }
+        @media (max-width:480px) {
+            .couple-names { font-size: 40px; }
+            .modal-names { font-size: 40px; }
+            .invitation-names { font-size: 32px; }
+            .card-header { padding: 40px 20px 35px; }
+            .card-body { padding: 20px; }
+            .time-value { font-size: 24px; }
+            .photo-main-large { width: 70%; }
+            .photo-hands-overlay { width: 60%; }
         }
     </style>
 </head>
-
 <body>
-
-    <!-- Opening modal -->
     <div class="modal" id="openModal">
         <div class="modal-content">
             <div style="font-size:12px;color:var(--text-muted);letter-spacing:2px;margin-bottom:8px;">ҮЙЛӨНҮҮ ТОЮ</div>
@@ -600,23 +1330,16 @@
             <button class="modal-btn" id="openBtn">Чакырууну ачуу</button>
         </div>
     </div>
-
-    <!-- Google Form popup -->
+    
     <div class="form-container" id="formContainer">
         <div class="form-wrapper">
             <button class="close-form" id="closeForm">✕</button>
-            <iframe
-                src="https://docs.google.com/forms/d/e/1FAIpQLSfoSUmuWrEhk99qjEMFRWDMBcQDusdbogXh4X5oEBhAbKT5Kg/viewform?embedded=true"
-                width="100%" height="850" frameborder="0" marginheight="0" marginwidth="0">
-                Жүктөлүүдө…
-            </iframe>
+            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfoSUmuWrEhk99qjEMFRWDMBcQDusdbogXh4X5oEBhAbKT5Kg/viewform?embedded=true" width="100%" height="850" frameborder="0">Жүктөлүүдө…</iframe>
         </div>
     </div>
 
     <div class="container">
         <div class="card" id="mainCard">
-
-            <!-- Header with arch -->
             <div class="card-header">
                 <div class="header-content">
                     <div class="couple-names">Элдияр<br>&<br>Сезим</div>
@@ -624,29 +1347,24 @@
                 </div>
             </div>
 
-            <!-- Main photo -->
             <div class="photo-container">
-                <div class="photo" id="couplePhoto"></div>
+                <div class="photo animate scale delay-1" id="couplePhoto"></div>
             </div>
 
-            <!-- Body content -->
             <div class="card-body">
-
-                <div class="greeting">
+                <div class="greeting animate fade-up delay-1">
                     Урматтуу туугандар, бөлөлөр, кудалар, достор жана кошуна-колоңдор!
                 </div>
 
-                <div class="invitation-names">
+                <div class="invitation-names animate scale delay-2">
                     Элдияр & Сезим
                 </div>
 
-                <div class="invitation-text">
-                    Бактылуу күнүбүздө биз менен бирге болуп, шаттанып, ырахат алып, асыл ниет, жакшы тилектериңиз менен
-                    куттуктап, тойлоп кетүүңүздү өтүнөбүз!
+                <div class="invitation-text animate fade-up delay-3">
+                    Бактылуу күнүбүздө биз менен бирге болуп, шаттанып, ырахат алып, асыл ниет, жакшы тилектериңиз менен куттуктап, тойлоп кетүүңүздү өтүнөбүз!
                 </div>
 
-                <!-- Timeline -->
-                <div class="timeline">
+                <div class="timeline animate slide-left delay-4">
                     <div class="day-item">10</div>
                     <div class="day-item">11</div>
                     <div class="day-item">12</div>
@@ -656,37 +1374,27 @@
                     <div class="day-item">16</div>
                 </div>
 
-                <!-- Time -->
-                <div class="event-time">
+                <div class="event-time animate fade-up delay-1">
                     Убакыт: 14.11.25 жылы саат 16:00 до
                 </div>
 
-                <!-- Additional couple photos - TWO PHOTOS OVERLAPPED -->
-                <div class="couple-photos">
+                <div class="couple-photos animate fade-up delay-2">
                     <div class="photos-overlap-container">
-                        <div class="photo-main-large" id="photo1"></div>
-                        <div class="photo-hands-overlay" id="photo3"></div>
+                        <div class="photo-main-large animate slide-left" id="photo1"></div>
+                        <div class="photo-hands-overlay animate slide-right" id="photo3"></div>
                     </div>
                 </div>
 
-                <!-- Location -->
-                <div class="location-box">
+                <div class="location-box animate scale delay-3">
                     <div class="location-title">Мекен, жайгашкан жери:</div>
                     <div class="location-name">Кара-Көл кафеси</div>
-                    <div class="location-address">
-                        Жалал-Абад облусу<br>
-                        Кара-Көл шаары
-                    </div>
+                    <div class="location-address">Жалал-Абад облусу<br>Кара-Көл шаары</div>
                     <div style="margin-top:12px;">
-                        <a href="https://2gis.kg/kara-kul/firm/70000001083977152/72.706302%2C41.636868?m=72.70674%2C41.636739%2F18.38" target="_blank"
-                            class="map-button">
-                            📍 Картадан кароо
-                        </a>
+                        <a href="https://2gis.kg/kara-kul/firm/70000001083977152/72.706302%2C41.636868?m=72.70674%2C41.636739%2F18.38" target="_blank" class="map-button">📍 Картадан кароо</a>
                     </div>
                 </div>
 
-                <!-- Countdown -->
-                <div class="countdown">
+                <div class="countdown animate fade-up delay-4">
                     <div class="countdown-title">Тойго чейин:</div>
                     <div class="countdown-timer">
                         <div class="time-unit">
@@ -708,8 +1416,7 @@
                     </div>
                 </div>
 
-                <!-- RSVP -->
-                <div class="rsvp-section">
+                <div class="rsvp-section animate slide-right delay-5">
                     <div class="rsvp-title">Катышасызбы? Кыскача жооп бериңиз</div>
                     <div class="rsvp-buttons">
                         <button class="rsvp-btn" id="btnYes">Барамын</button>
@@ -718,20 +1425,11 @@
                     <div class="status-msg" id="statusMsg"></div>
                 </div>
 
-                <!-- Hosts -->
-                <div class="hosts">
+                <div class="hosts animate fade-up delay-1">
                     <div class="hosts-label">Урматтоо менен:</div>
-
-                    <div class="hosts-names">
-                       Азамат,Жибек
-
-                    </div>
-                    <div class="hosts-namess">
-                        
-                         Айсулу, Шааргүл
-                    </div>
-                    
-                    <div class="divvv">
+                    <div class="hosts-names">Азамат,Жибек</div>
+                    <div class="hosts-namess">Айсулу, Шааргүл</div>
+                    <div class="divvv animate fade delay-2">
                         <img class="imggg" src="./photo_5433766209859486062_y.jpg" alt="" width="300px">
                     </div>
                 </div>
@@ -740,32 +1438,40 @@
     </div>
 
     <script>
-        // Elements
         const modal = document.getElementById('openModal');
         const openBtn = document.getElementById('openBtn');
         const mainCard = document.getElementById('mainCard');
         const btnYes = document.getElementById('btnYes');
         const btnNo = document.getElementById('btnNo');
         const statusMsg = document.getElementById('statusMsg');
-        const couplePhoto = document.getElementById('couplePhoto');
-        const photo1 = document.getElementById('photo1');
-        const photo3 = document.getElementById('photo3');
         const formContainer = document.getElementById('formContainer');
         const closeForm = document.getElementById('closeForm');
 
-        // Open invitation
-        openBtn.addEventListener('click', () => {
-            modal.classList.add('hidden');
-            mainCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // Intersection Observer для анимаций
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
         });
 
-        // Countdown timer
-        const weddingDate = new Date('2025-11-14T16:00:00').getTime();
+        // Наблюдаем за всеми анимируемыми элементами
+        document.querySelectorAll('.animate').forEach(el => observer.observe(el));
 
+        openBtn.addEventListener('click', () => {
+            modal.classList.add('hidden');
+            mainCard.scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // Countdown
+        const weddingDate = new Date('2025-11-14T16:00:00').getTime();
         function updateCountdown() {
             const now = new Date().getTime();
             const distance = weddingDate - now;
-
             if (distance < 0) {
                 document.getElementById('days').textContent = '00';
                 document.getElementById('hours').textContent = '00';
@@ -773,75 +1479,39 @@
                 document.getElementById('seconds').textContent = '00';
                 return;
             }
-
             const days = Math.floor(distance / (1000 * 60 * 60 * 24));
             const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
             document.getElementById('days').textContent = String(days).padStart(2, '0');
             document.getElementById('hours').textContent = String(hours).padStart(2, '0');
             document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
             document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
         }
-
         updateCountdown();
         setInterval(updateCountdown, 1000);
 
-        // RSVP buttons - open Google Form
         function openGoogleForm() {
             formContainer.classList.add('active');
             document.body.style.overflow = 'hidden';
         }
-
         function closeGoogleForm() {
             formContainer.classList.remove('active');
             document.body.style.overflow = 'auto';
-            showStatus("Рахмат! Жообуңуз кабыл алынды.");
+            statusMsg.textContent = "Рахмат! Жообуңуз кабыл алынды.";
+            statusMsg.style.color = 'var(--primary)';
+            setTimeout(() => {
+                statusMsg.textContent = "";
+            }, 5000);
         }
 
         btnYes.addEventListener('click', openGoogleForm);
         btnNo.addEventListener('click', openGoogleForm);
         closeForm.addEventListener('click', closeGoogleForm);
-
-        // Close form on outside click
         formContainer.addEventListener('click', (e) => {
-            if (e.target === formContainer) {
-                closeGoogleForm();
-            }
+            if (e.target === formContainer) closeGoogleForm();
         });
 
-        function showStatus(text) {
-            statusMsg.textContent = text;
-            statusMsg.style.color = 'var(--primary)';
-            setTimeout(() => {
-                statusMsg.textContent = "";
-                statusMsg.style.color = 'var(--text-muted)';
-            }, 5000);
-        }
-
-        // Photo upload function
-        function setupPhotoUpload(element) {
-            element.addEventListener('click', () => {
-                const input = document.createElement('input');
-                input.type = 'file';
-                input.accept = 'image/*';
-                input.onchange = (e) => {
-                    const file = e.target.files[0];
-                    if (!file) return;
-                    const url = URL.createObjectURL(file);
-                    element.style.backgroundImage = `url('${url}')`;
-                };
-                input.click();
-            });
-        }
-
-        // Setup all photo uploads
-        setupPhotoUpload(couplePhoto);
-        setupPhotoUpload(photo1);
-        setupPhotoUpload(photo3);
-
-        // Listen for form submission
         window.addEventListener('message', (event) => {
             if (event.data && typeof event.data === 'string') {
                 if (event.data.includes('formResponse') || event.data.includes('formSubmitted')) {
@@ -851,5 +1521,4 @@
         });
     </script>
 </body>
-
 </html>
